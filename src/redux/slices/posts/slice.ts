@@ -7,9 +7,10 @@ import { fetchPosts, createPost, updatePost, deletePost } from "./api";
 const initialState: PostStates = {
     items: [],
     error: null,
+    searchTerm: "",
     status: "idle",
     deleteModal: {},
-    createOrUpdateModal: {},
+    createOrUpdateModal: {}
 };
 
 const postsSlice = createSlice({
@@ -22,6 +23,9 @@ const postsSlice = createSlice({
         toggleCreateOrUpdateModal: (state, action: PayloadAction<CreateUpdateModal<PostResponse>>) => {
             state.createOrUpdateModal = action.payload;
         },
+        setSearchTerm: (state, action: PayloadAction<string>) => {
+            state.searchTerm = action.payload;
+        }
     },
     extraReducers: (builder) => {
         builder
@@ -49,6 +53,7 @@ const postsSlice = createSlice({
     }
 });
 export const {
+    setSearchTerm,
     toggleDeleteDialog,
     toggleCreateOrUpdateModal
 } = postsSlice.actions;

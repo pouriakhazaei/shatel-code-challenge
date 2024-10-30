@@ -5,6 +5,7 @@ export type Status = "idle" | "loading" | "succeeded" | "failed";
 
 export interface PostStates {
     status: Status;
+    searchTerm: string;
     error: string | null;
     items: PostResponse[];
     deleteModal: OpenModal<PostResponse>;

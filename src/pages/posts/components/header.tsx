@@ -1,18 +1,25 @@
 import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
-import { AppDispatch } from "../../../redux/store";
 import { createPost } from "../../../redux/slices/posts/api";
+import { AppDispatch, RootState } from "../../../redux/store";
+import { setSearchTerm } from "../../../redux/slices/posts/slice";
 
 const Header = () => {
     const dispatch = useDispatch<AppDispatch>();
     const [newTitle, setNewTitle] = useState<string>("");
+    const { searchTerm } = useSelector((state: RootState) => state.posts);
 
     const handleCreatePost = () => {
         if (newTitle.trim()) {
             dispatch(createPost({ title: newTitle, body: "New Post Body" }));
             setNewTitle("");
         };
+    };
+
+    const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const searchValue = e.target.value;
+        dispatch(setSearchTerm(searchValue));
     };
 
     return (
@@ -24,9 +31,9 @@ const Header = () => {
                 <div className="col-span-12 md:col-span-6 order-2 md:order-1">
                     <input
                         type="text"
-                        value={newTitle}
+                        value={searchTerm}
                         placeholder="Search by title"
-                        onChange={(e) => setNewTitle(e.target.value)}
+                        onChange={handleSearchChange}
                         className="border p-2 rounded w-full outline-none transition-all hover:border-blue-600"
                     />
                 </div>

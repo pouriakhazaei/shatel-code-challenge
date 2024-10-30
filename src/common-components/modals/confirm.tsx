@@ -11,27 +11,27 @@ type Props = {
 
 export default function ConfirmModal(props: Props) {
     return (
-        <BaseModal open={props.open} onClose={props.onClose} classNames={{ modal: "!p-0 !rounded-2xl min-w-[90%] md:min-w-[60%]" }}>
-            <div className="min-w-[95%] md:min-w-[600px] grid grid-cols-12">
-                <h3 className="font-semibold text-red-600">
-                    {props.text}
+        <BaseModal open={props.open} onClose={props.onClose} classNames={{ modal: "!rounded-2xl" }}>
+            <div className="text-center">
+                <h3 className="font-semibold text-red-600 text-wrap">
+                    {props.text} ?
                 </h3>
-                <span className="text-sm text-gray-500">
-                    آیا از حذف مطمعن هستید
-                </span>
-                <div className="col-span-12 md:col-span-6">
+                <p className="text-sm text-gray-500 mt-3">
+                    Are you sure about the deletion?
+                </p>
+                <div className="grid grid-cols-12">
                     <div className="grid grid-cols-12 gap-3 p-4">
                         <div className="col-span-6">
-                            <button onClick={props.onClose} className="text-primary-main w-full h-10 flex items-center justify-center font-semibold text-sm">
-                                انصراف
+                            <button onClick={props.onClose} className="text-red-600 w-full h-10 flex items-center justify-center font-semibold text-sm">
+                                Cancel
                             </button>
                         </div>
                         <div className="col-span-6">
                             <LoadingButton
                                 onClick={props.onSubmitFn}
                                 loading={props.onSubmitLoading}
-                                text={`${props.onSubmitText} || ذخیره`}
-                                className="bg-primary-main text-white w-full rounded-xl h-10 flex items-center justify-center font-semibold text-sm"
+                                text={props.onSubmitText || "Submit"}
+                                className="bg-blue-600 text-white w-full rounded-xl h-10 flex items-center justify-center font-semibold text-sm"
                             />
                         </div>
                     </div>

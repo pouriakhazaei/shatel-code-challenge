@@ -3,9 +3,9 @@ import { useSelector, useDispatch } from "react-redux";
 
 import { Header, List } from "./components";
 import { ConfirmModal } from "common-components";
-import { fetchPosts } from "../../redux/slices/posts/api";
 import { RootState, AppDispatch } from "../../redux/store";
 import { toggleDeleteDialog } from "../../redux/slices/posts/slice";
+import { fetchPosts, deletePost } from "../../redux/slices/posts/api";
 
 const Posts = () => {
     const dispatch = useDispatch<AppDispatch>();
@@ -23,10 +23,13 @@ const Posts = () => {
             <List />
             {deleteModal.visible &&
                 <ConfirmModal
-                    text={""}
-                    onClose={() => { }}
-                    onSubmitFn={() => { }}
+                    onSubmitText="Yes"
                     open={deleteModal.visible}
+                    text={`Delete ${deleteModal.items?.title}`}
+                    onSubmitFn={() => dispatch(deletePost(deleteModal.items?.id)).then(() => {
+                        dispatch(toggleDeleteDialog({ visible: false }))
+                    })}
+                    onClose={() => dispatch(toggleDeleteDialog({ visible: false }))}
                 />
             }
         </Fragment>

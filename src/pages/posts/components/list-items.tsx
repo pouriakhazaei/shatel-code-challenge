@@ -1,11 +1,11 @@
 import { memo } from "react";
-
 import { useDispatch } from "react-redux";
 
 import { PostResponse } from "types/posts";
 import { AppDispatch } from "../../../redux/store";
+import { toggleDeleteDialog } from "../../../redux/slices/posts/slice";
 
-const ListItems = ({ id, body, title, userId }: PostResponse) => {
+const ListItems = (props: PostResponse) => {
     const dispatch = useDispatch<AppDispatch>();
     // const posts = useSelector((state: RootState) => state.posts.items);
     // const postStatus = useSelector((state: RootState) => state.posts.status);
@@ -21,12 +21,13 @@ const ListItems = ({ id, body, title, userId }: PostResponse) => {
 
     const handleDeletePost = () => {
         // dispatch(deletePost(postId));
+        dispatch(toggleDeleteDialog({ visible: true, items: props }));
     };
 
     return (
         <li className="border border-gray-200 p-4 mb-2 flex flex-col md:flex-row justify-between items-center gap-2 bg-white rounded">
             <span>
-                {title}
+                {props.title}
             </span>
             <div className="flex items-center gap-1 w-full md:w-fit">
                 <button
