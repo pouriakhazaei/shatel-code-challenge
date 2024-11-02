@@ -1,15 +1,15 @@
 import { useEffect, Fragment } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
-import { Header, List } from "./components";
 import { ConfirmModal } from "common-components";
 import { RootState, AppDispatch } from "../../redux/store";
+import { Header, List, CreateOrUpdateModal } from "./components";
 import { toggleDeleteDialog } from "../../redux/slices/posts/slice";
 import { fetchPosts, deletePost } from "../../redux/slices/posts/api";
 
 const Posts = () => {
     const dispatch = useDispatch<AppDispatch>();
-    const { status, deleteModal } = useSelector((state: RootState) => state.posts);
+    const { status, deleteModal, createOrUpdateModal } = useSelector((state: RootState) => state.posts);
 
     useEffect(() => {
         if (status === "idle") {
@@ -32,6 +32,7 @@ const Posts = () => {
                     onClose={() => dispatch(toggleDeleteDialog({ visible: false }))}
                 />
             }
+            {createOrUpdateModal.visible && <CreateOrUpdateModal />}
         </Fragment>
     );
 };

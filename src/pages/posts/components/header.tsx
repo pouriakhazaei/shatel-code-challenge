@@ -1,20 +1,14 @@
-import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import { createPost } from "../../../redux/slices/posts/api";
 import { AppDispatch, RootState } from "../../../redux/store";
-import { setSearchTerm } from "../../../redux/slices/posts/slice";
+import { setSearchTerm, toggleCreateOrUpdateModal } from "../../../redux/slices/posts/slice";
 
 const Header = () => {
     const dispatch = useDispatch<AppDispatch>();
-    const [newTitle, setNewTitle] = useState<string>("");
     const { searchTerm } = useSelector((state: RootState) => state.posts);
 
     const handleCreatePost = () => {
-        if (newTitle.trim()) {
-            dispatch(createPost({ title: newTitle, body: "New Post Body" }));
-            setNewTitle("");
-        };
+        dispatch(toggleCreateOrUpdateModal({ visible: true }));
     };
 
     const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {

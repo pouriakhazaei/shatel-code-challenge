@@ -3,24 +3,16 @@ import { useDispatch } from "react-redux";
 
 import { PostResponse } from "types/posts";
 import { AppDispatch } from "../../../redux/store";
-import { toggleDeleteDialog } from "../../../redux/slices/posts/slice";
+import { toggleDeleteDialog, toggleCreateOrUpdateModal } from "../../../redux/slices/posts/slice";
 
 const ListItems = (props: PostResponse) => {
     const dispatch = useDispatch<AppDispatch>();
-    // const posts = useSelector((state: RootState) => state.posts.items);
-    // const postStatus = useSelector((state: RootState) => state.posts.status);
-    // const [newTitle, setNewTitle] = useState("");
-    // const [currentPost, setCurrentPost] = useState<{ id: number; title: string; body: string } | null>(null);
-
 
     const handleUpdatePost = () => {
-        // setCurrentPost(post);
-        // setNewTitle(post.title);
+        dispatch(toggleCreateOrUpdateModal({ visible: true, editMode: true, items: props }));
     };
 
-
     const handleDeletePost = () => {
-        // dispatch(deletePost(postId));
         dispatch(toggleDeleteDialog({ visible: true, items: props }));
     };
 
